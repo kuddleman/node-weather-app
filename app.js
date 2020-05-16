@@ -30,10 +30,18 @@ const newUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.
 
 request({ url: newUrl, json: true }, (error, response) => {
   //console.log(response.body.features[0].center)
+
+  //handle low-level error first:
   if( error ) {
     console.log('Unable to connect to service')
+   
+   // handle error if there is no location found--input error 
   }else if( response.body.error ){
     console.log('Unable to find location')
+
+  } else if (response.body.features.length === 0) {
+     console.log('Sorry, Charlie!')
+  
   }else {
     const longitude = response.body.features[0].center[0]
 
